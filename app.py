@@ -1,7 +1,13 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from tasks import process_video, transcribe_audio, score_segment
 
 app = Flask(__name__)
+CORS(app)  # ✅ Enables CORS for all routes
+
+@app.route('/')
+def index():
+    return "Court Stream API is live!"
 
 @app.route('/api/submit-video', methods=['POST'])
 def submit_video():
@@ -32,7 +38,3 @@ def score():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-@app.route('/')
-def index():
-    return "Court Stream API is live!"
